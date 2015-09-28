@@ -1,4 +1,4 @@
-package com.geniusgithub.contact.main;
+package com.geniusgithub.contact.dialer;
 
 import android.app.Activity;
 import android.content.Context;

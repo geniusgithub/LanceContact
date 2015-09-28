@@ -1,4 +1,4 @@
-package com.geniusgithub.contact.main;
+package com.geniusgithub.contact;
 
 import java.util.HashMap;
 import java.util.Map;

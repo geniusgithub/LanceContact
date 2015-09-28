@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff" >
 
-    <view class="com.geniusgithub.contact.main.TabViewContainer"  
+    <view class="com.geniusgithub.contact.TabViewContainer"  
     android:id="@+id/tabview_container"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/actionBarSize"

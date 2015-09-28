@@ -11,12 +11,10 @@ import com.geniusgithub.contact.base.BaseActivity;
 import com.geniusgithub.contact.base.BaseActivityBinder;
 import com.geniusgithub.contact.base.BaseFragment;
 import com.geniusgithub.contact.base.ITabInterface;
+import com.geniusgithub.contact.dialer.DialpadFragment;
 import com.geniusgithub.contact.main.CallLogFragment;
 import com.geniusgithub.contact.main.ContactFragment;
-import com.geniusgithub.contact.main.DialpadFragment;
 import com.geniusgithub.contact.main.PersionFragment;
-import com.geniusgithub.contact.main.TabManager;
-import com.geniusgithub.contact.main.TabViewContainer;
 import com.geniusgithub.contact.util.CommonLog;
 import com.geniusgithub.contact.util.LogFactory;
 

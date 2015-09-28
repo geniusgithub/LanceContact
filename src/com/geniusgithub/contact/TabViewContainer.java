@@ -1,4 +1,4 @@
-package com.geniusgithub.contact.main;
+package com.geniusgithub.contact;
 
 import android.content.Context;
 import android.util.AttributeSet;
