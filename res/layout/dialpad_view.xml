@@ -16,14 +16,13 @@
 <view class="com.geniusgithub.contact.dialer.DialpadView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialpad_view"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:orientation="vertical"
     android:layoutDirection="ltr"
-    android:background="@color/background_dialpad"
     android:clickable="true" >
-
+<!--  android:background="@color/background_dialpad" -->
     <!-- Text field and possibly soft menu button above the keypad where
      the digits are displayed. -->
     <LinearLayout
@@ -41,8 +40,7 @@
             android:paddingLeft="@dimen/dialpad_digits_menu_left_padding"
             android:paddingRight="@dimen/dialpad_digits_menu_right_padding"
             android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:visibility="invisible" />
+            android:layout_gravity="center_vertical" />
 
         <view class="com.geniusgithub.contact.dialer.DigitsEditText"
             xmlns:ex="http://schemas.android.com/apk/res-auto"
@@ -87,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dialpad_space_above_keys" />
 
-    <include layout="@layout/dialpad" />
+    <include layout="@layout/dialpad"/>
 
     <Space
         android:layout_width="match_parent"

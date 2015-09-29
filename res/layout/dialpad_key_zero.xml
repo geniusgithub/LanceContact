@@ -16,7 +16,7 @@
 
 <!-- A layout representing the zero key in the dialpad, with the plus sign shifted up because it is
      smaller than a regular letter -->
-<com.lenovo.ideafriend.dialer.layout.DialpadKeyButton
+<com.geniusgithub.contact.dialer.DialpadKeyButton
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/zero"
     style="@style/DialpadKeyButtonStyle" >
@@ -24,11 +24,11 @@
         <!-- Note in the referenced styles that we assign hard widths to these components
              because we want them to line up vertically when we arrange them in an MxN grid -->
 
-        <com.lenovo.ideafriend.dialer.layout.DialpadNumberTextView
+        <com.geniusgithub.contact.dialer.DialpadTextView
             android:id="@+id/dialpad_key_number"
             style="@style/DialpadBottomKeyNumberStyle" />
 
         <TextView
             android:id="@+id/dialpad_key_letters"
             style="@style/DialpadKeyLettersStyle" />
-</com.lenovo.ideafriend.dialer.layout.DialpadKeyButton>
+</com.geniusgithub.contact.dialer.DialpadKeyButton>

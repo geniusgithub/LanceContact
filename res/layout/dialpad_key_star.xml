@@ -13,14 +13,14 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.lenovo.ideafriend.dialer.layout.DialpadKeyButton
+<com.geniusgithub.contact.dialer.DialpadKeyButton
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/star"
     style="@style/DialpadKeyButtonStyle">
-        <com.lenovo.ideafriend.dialer.layout.DialpadNumberTextView
+        <com.geniusgithub.contact.dialer.DialpadTextView
             android:id="@+id/dialpad_key_number"
             style="@style/DialpadKeyStarStyle" />
         <TextView 
             android:id="@+id/dialpad_key_letters" 
             style="@style/DialpadKeyLettersStyle" /> 
-</com.lenovo.ideafriend.dialer.layout.DialpadKeyButton>
+</com.geniusgithub.contact.dialer.DialpadKeyButton>

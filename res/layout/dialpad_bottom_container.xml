@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+
+<!--
+     height use 60dp instead of @dimen/floating_action_button_height
+	    	increase the height of linear layout to show button shadow
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<!--     <Space style="@style/DialpadSpaceStyle" /> -->
+   <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="22"
+        android:gravity="center"	
+        android:background="@color/empty_transparent" >
+
+<!--             <ImageButton -->
+<!--             android:id="@+id/addContactButton" -->
+<!--             android:background="@drawable/btn_dialpad_key" -->
+<!--             android:tint="@color/dialpad_icon_tint" -->
+<!--             android:paddingLeft="@dimen/dialpad_digits_padding" -->
+<!--             android:paddingRight="@dimen/dialpad_digits_padding" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:state_enabled="false" -->
+<!--             android:src="@drawable/speed_dial_grid_bg_add_up" /> -->
+                    
+                    
+    </RelativeLayout>
+
+    <LinearLayout 
+        android:id="@+id/dialpad_floating_action_button_single_out_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="22" >
+        
+	    <FrameLayout
+	        android:id="@+id/dialpad_floating_action_button_single_container"
+	        android:layout_width="@dimen/floating_action_button_width"
+	        android:layout_height="@dimen/floating_action_button_height"
+	        android:background="@drawable/fab_green" >
+	
+	        <ImageButton
+	            android:id="@+id/dialpad_single_card"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_gravity="center"
+	            android:background="@drawable/floating_action_button"
+	            android:src="@drawable/fab_ic_call"
+	            android:textSize="@dimen/dialpad_key_letters_size" />
+	    </FrameLayout>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialpad_floating_action_dual_button_container"
+        android:layout_width="@dimen/floating_action_dual_button_width"
+        android:layout_height="@dimen/floating_action_dual_button_height"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+<!--         <com.lenovo.ideafriend.dialer.layout.DialpadHorizontalCenterTextView -->
+<!--             android:id="@+id/dialpad_dual_card1" -->
+<!--             android:layout_width="0dp" -->
+<!--             android:layout_height="match_parent" -->
+<!--             android:layout_gravity="center" -->
+<!--             android:layout_weight="1" -->
+<!--             android:background="@drawable/dialpad_call_button_left" -->
+<!--             android:clickable="true" -->
+<!--             android:contentDescription="@string/description_dial_button" -->
+<!--             android:drawableLeft="@drawable/call_bar_dial1" -->
+<!--             android:textColor="?attr/lenovo_dial_dualcard_textcolor" -->
+<!--             android:textSize="11sp" /> -->
+
+<!--         <com.lenovo.ideafriend.dialer.layout.DialpadHorizontalCenterTextView -->
+<!--             android:id="@+id/dialpad_dual_card2" -->
+<!--             android:layout_width="0dp" -->
+<!--             android:layout_height="match_parent" -->
+<!--             android:layout_gravity="center" -->
+<!--             android:layout_weight="1" -->
+<!--             android:background="@drawable/dialpad_call_button_right" -->
+<!--             android:clickable="true" -->
+<!--             android:contentDescription="@string/description_dial_button" -->
+<!--             android:drawableLeft="@drawable/call_bar_dial2" -->
+<!--             android:textColor="?attr/lenovo_dial_dualcard_textcolor" -->
+<!--             android:textSize="11sp" /> -->
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="22"
+        android:gravity="center"
+        android:background="@color/empty_transparent" >
+
+            
+            <ImageButton
+            android:id="@+id/deleteButton"
+            android:background="@drawable/btn_dialpad_key"
+            android:tint="@color/dialpad_icon_tint"
+            android:padding="16dp"     
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:state_enabled="false"
+            android:src="@drawable/ic_dialpad_delete" />
+
+                
+    </RelativeLayout>
+
+<!--     <Space style="@style/DialpadSpaceStyle" /> -->
+</LinearLayout>

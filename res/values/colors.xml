@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    
+    <color name="empty_transparent">#00000000</color>
+        
+        
     <!-- Colors for the dialpad -->
     <color name="dialer_theme_color">#0288d1</color>
     <color name="dialer_theme_color_dark">#0277bd</color>
@@ -16,5 +18,5 @@
 	<color name="dialpad_call_button_color_right">#3c6ec1</color>
 	<color name="dialpad_call_button_text_color">#ffffff</color>
 	
-	
+	<color name="floating_action_button_touch_tint">#80ffffff</color>
 </resources>

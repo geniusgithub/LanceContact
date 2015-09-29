@@ -4,6 +4,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     
+    <!-- Length of dialpad's shadows in dialer. -->
+    <dimen name="tab_container_height">60dp</dimen>
+    
+    
+    <!-- Length of dialpad's shadows in dialer. -->
+    <dimen name="shadow_length">10dp</dimen>
+    
     
      <!-- Text dimensions for dialpad keys -->
     <dimen name="dialpad_key_numbers_size">33dp</dimen>
@@ -38,9 +45,25 @@
 	<dimen name="dialer_ripple_radius">46dp</dimen>
     <!-- Height of the floating action button -->
     <dimen name="floating_action_button_height">56dp</dimen>  
-    <dimen name="floating_action_dual_button_height">50dp</dimen>
+    <dimen name="floating_action_dual_button_height">70dp</dimen>
 
     
- 
+    <!-- Height of the floating action button --> 
+    <!-- Width of the floating action button -->
+    <dimen name="floating_action_button_width">56dp</dimen>
+    <dimen name="floating_action_dual_button_width">188dp</dimen>
+    <!-- Corner radius of the floating action button -->
+    <dimen name="floating_action_button_radius">28dp</dimen>
+    <!-- Z translation of the floating action button -->
+    <dimen name="floating_action_button_translation_z">2dp</dimen>
+    <!-- Padding to be applied to the bottom of lists to make space for the floating action
+         button -->
+    <dimen name="floating_action_button_list_bottom_padding">88dp</dimen>
+    <!-- Right margin of the floating action button -->
+    <dimen name="floating_action_button_margin_right">16dp</dimen>
+    <!-- Bottom margin of the floating action button -->
+    <dimen name="floating_action_button_margin_bottom">10dp</dimen>
+    <!-- Offset of bottom margin of the floating action button used when dialpad is up -->
+    <dimen name="floating_action_button_dialpad_margin_bottom_offset">4dp</dimen>
 
 </resources>

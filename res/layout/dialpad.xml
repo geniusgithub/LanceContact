@@ -19,7 +19,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialpad"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:clipChildren="false">
     <LinearLayout
@@ -87,7 +87,7 @@
                 android:id="@+id/pound" />
         <Space style="@style/DialpadSpaceStyle" />
     </LinearLayout>
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dialpad_bottom_key_height" />
+<!--     <Space -->
+<!--         android:layout_width="match_parent" -->
+<!--         android:layout_height="@dimen/dialpad_bottom_key_height" /> -->
 </LinearLayout>

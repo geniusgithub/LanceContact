@@ -3,11 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-		android:layout_centerInParent="true"
-        android:layout_marginTop="58dp"
-        android:text="DIALPAD"/>
+   <Space android:id="@+id/dialpad_floating_action_button_margin_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true" />
+        
+ 
+   <include
+    android:id="@+id/dialpad_bottom_bar"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_above="@id/dialpad_floating_action_button_margin_bottom"
+    layout="@layout/dialpad_bottom_container"/>
+   
+   
+   <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/dialpad_bottom_bar"
+            android:orientation="vertical">
+
+
+            <View
+                android:id="@+id/spacer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/empty_transparent" />
+            <!-- Dialpad shadow -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/shadow_length"
+                android:background="@drawable/shadow_fade_up" />
+
+            <include layout="@layout/dialpad_view" />
+
+        </LinearLayout>
+        
+
 
 </RelativeLayout>
