@@ -31,16 +31,16 @@
         android:layout_height="@dimen/dialpad_digits_height"
         android:orientation="horizontal">
 <!--       android:src="@drawable/ic_overflow_menu" -->
-        <ImageButton android:id="@+id/dialpad_overflow"
-            android:background="@drawable/volte_close"
-            android:tint="@color/dialpad_icon_tint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dialpad_overflow_margin"
-            android:paddingLeft="@dimen/dialpad_digits_menu_left_padding"
-            android:paddingRight="@dimen/dialpad_digits_menu_right_padding"
-            android:gravity="center"
-            android:layout_gravity="center_vertical" />
+<!--         <ImageButton android:id="@+id/dialpad_overflow" -->
+<!--             android:background="@drawable/volte_close" -->
+<!--             android:tint="@color/dialpad_icon_tint" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_margin="@dimen/dialpad_overflow_margin" -->
+<!--             android:paddingLeft="@dimen/dialpad_digits_menu_left_padding" -->
+<!--             android:paddingRight="@dimen/dialpad_digits_menu_right_padding" -->
+<!--             android:gravity="center" -->
+<!--             android:layout_gravity="center_vertical" /> -->
 
         <view class="com.geniusgithub.contact.dialer.DigitsEditText"
             xmlns:ex="http://schemas.android.com/apk/res-auto"

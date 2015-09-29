@@ -49,21 +49,21 @@ public class TabViewContainer extends ViewGroup implements OnClickListener, ITab
         mRootView =  LayoutInflater.from(mContext).inflate(R.layout.tabview_container, null, false);  
     	
     	mTabViews = new View[CHILD_COUNT];
-    	mTabViews[0] = mRootView.findViewById(R.id.re_weixin);
-    	mTabViews[1] = mRootView.findViewById(R.id.re_contact_list);
-    	mTabViews[2] = mRootView.findViewById(R.id.re_find);
+    	mTabViews[0] = mRootView.findViewById(R.id.re_dialpad);
+    	mTabViews[1] = mRootView.findViewById(R.id.re_calllog);
+    	mTabViews[2] = mRootView.findViewById(R.id.re_contact_list);
     	mTabViews[3] = mRootView.findViewById(R.id.re_profile);
     	
     	mImageViews = new ImageView[CHILD_COUNT];
-    	mImageViews[0] = (ImageView) mRootView.findViewById(R.id.ib_weixin);
-     	mImageViews[1] = (ImageView) mRootView.findViewById(R.id.ib_contact_list);
-     	mImageViews[2] = (ImageView) mRootView.findViewById(R.id.ib_find);
+    	mImageViews[0] = (ImageView) mRootView.findViewById(R.id.ib_dialpad);
+     	mImageViews[1] = (ImageView) mRootView.findViewById(R.id.ib_calllog);
+     	mImageViews[2] = (ImageView) mRootView.findViewById(R.id.ib_contact_list);
      	mImageViews[3] = (ImageView) mRootView.findViewById(R.id.ib_profile);
      	
      	mTextViews = new TextView[CHILD_COUNT];
-     	mTextViews[0] = (TextView) mRootView.findViewById(R.id.tv_weixin);
-    	mTextViews[1] = (TextView) mRootView.findViewById(R.id.tv_contact_list);
-    	mTextViews[2] = (TextView) mRootView.findViewById(R.id.tv_find);
+     	mTextViews[0] = (TextView) mRootView.findViewById(R.id.tv_dialpad);
+    	mTextViews[1] = (TextView) mRootView.findViewById(R.id.tv_calllog);
+    	mTextViews[2] = (TextView) mRootView.findViewById(R.id.tv_contact_list);
     	mTextViews[3] = (TextView) mRootView.findViewById(R.id.tv_profile);
     	
     	addView(mRootView); 
@@ -107,13 +107,13 @@ public class TabViewContainer extends ViewGroup implements OnClickListener, ITab
 	public void onClick(View v) {
 	
 		switch(v.getId()){
-			case R.id.re_weixin:
+			case R.id.re_dialpad:
 				setTab(0);
 				break;
-			case R.id.re_contact_list:
+			case R.id.re_calllog:
 				setTab(1);
 				break;
-			case R.id.re_find:
+			case R.id.re_contact_list:
 				setTab(2);
 				break;
 			case R.id.re_profile:

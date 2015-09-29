@@ -3,7 +3,14 @@
     
     <color name="empty_transparent">#00000000</color>
         
-        
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="blue">#ffccddff</color>
+    <color name="red">#ffff0101</color>
+    <color name="grey">#ff58616d</color>
+    <color name="darkgrey">#ff404040</color>
+    
+    
     <!-- Colors for the dialpad -->
     <color name="dialer_theme_color">#0288d1</color>
     <color name="dialer_theme_color_dark">#0277bd</color>

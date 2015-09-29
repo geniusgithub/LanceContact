@@ -40,7 +40,6 @@
             <include layout="@layout/dialpad_view" />
 
         </LinearLayout>
-        
 
 
 </RelativeLayout>
