@@ -44,7 +44,7 @@
 
         <view class="com.geniusgithub.contact.dialer.DigitsEditText"
             xmlns:ex="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/digits"
+            android:id="@+id/et_inputdigits"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:scrollHorizontally="true"

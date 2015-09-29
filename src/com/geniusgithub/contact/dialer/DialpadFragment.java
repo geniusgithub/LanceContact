@@ -2,28 +2,45 @@ package com.geniusgithub.contact.dialer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.method.DialerKeyListener;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.geniusgithub.contact.R;
 import com.geniusgithub.contact.base.BaseFragment;
+import com.geniusgithub.contact.dialer.DialpadView.IDigitKeyListener;
+import com.geniusgithub.contact.dialer.DialpadView.KeyDigit;
 import com.geniusgithub.contact.util.AnimUtils;
+import com.geniusgithub.contact.util.CallUtil;
 import com.geniusgithub.contact.util.CommonLog;
 import com.geniusgithub.contact.util.LogFactory;
+import com.geniusgithub.contact.util.PhoneNumberFormatter;
 
-public class DialpadFragment extends BaseFragment{
+public class DialpadFragment extends BaseFragment implements TextWatcher, IDigitKeyListener, OnClickListener{
 
 	private static final CommonLog log = LogFactory.createLog(DialpadFragment.class.getSimpleName());
 	private View mFragmentContainer;
 	private ViewGroup mDialpadContainer;
 	private DialpadView mDigitDialpad;						
-
+	private EditText mDigitsEditText;		
+	  
+	private ImageButton mSingCardBtn;
+	  
     private Animation mSlideIn;
     private Animation mSlideOut;
     
@@ -112,6 +129,17 @@ public class DialpadFragment extends BaseFragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {    
 	   mDialpadContainer = (ViewGroup) mFragmentContainer.findViewById(R.id.dialpad_container);
 	   mDigitDialpad = (DialpadView) mFragmentContainer.findViewById(R.id.dialpad_view);
+	   mDigitDialpad.setCanDigitsBeEdited(true);
+	   mDigitDialpad.setKeyListener(this);
+	   
+	   mDigitsEditText = mDigitDialpad.getDigits();	
+       mDigitsEditText.addTextChangedListener(this);
+       mDigitsEditText.setKeyListener(DialerKeyListener.getInstance());
+       mDigitsEditText.setElegantTextHeight(false);
+       PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(getActivity(), mDigitsEditText);
+       
+       mSingCardBtn = (ImageButton) mFragmentContainer.findViewById(R.id.dialpad_single_card);
+       mSingCardBtn.setOnClickListener(this);
    }
 
 	@Override
@@ -156,6 +184,144 @@ public class DialpadFragment extends BaseFragment{
 	       
 	}
 	
+	
+    private void keyPressed(int keyCode) {
+        KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+        mDigitsEditText.onKeyDown(keyCode, event);
+    }
 
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void afterTextChanged(Editable s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onKeyPress(KeyDigit key) {
+		int keyCode = getKeyCode(key);
+		Log.d("wyj", "onPress keyCode = " + keyCode);
+		if (keyCode != -1){
+			KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+		    mDigitsEditText.onKeyDown(keyCode, event);
+		}
+
+	}
+	
+	public int getKeyCode(KeyDigit key){
+		int keyCode = -1;
+		switch(key){
+		 	case KEY_ONE:
+		 		keyCode = KeyEvent.KEYCODE_1;
+		     	break;
+		     case KEY_TWO:
+		    	 keyCode = KeyEvent.KEYCODE_2;
+		     	break;
+		     case KEY_THREE:
+		    	 keyCode = KeyEvent.KEYCODE_3;
+		     	break;
+		     case KEY_FOUR:
+		    	 keyCode = KeyEvent.KEYCODE_4;
+		     	break;
+		     case KEY_FIVE:
+		    	 keyCode = KeyEvent.KEYCODE_5;
+		     	break;
+		     case KEY_SIX:
+		    	 keyCode = KeyEvent.KEYCODE_6;
+		     	break;
+		     case KEY_SEVEN:
+		    	 keyCode = KeyEvent.KEYCODE_7;
+		     	break;
+		     case KEY_EIGHT:
+		    	 keyCode = KeyEvent.KEYCODE_8;
+		     	break;
+		     case KEY_NIGHT:
+		    	 keyCode = KeyEvent.KEYCODE_9;
+		     	break;
+		     case KEY_START:
+		    	 keyCode = KeyEvent.KEYCODE_STAR;
+		    	 break;
+		     case KEY_ZERO:
+		    	 keyCode = KeyEvent.KEYCODE_0;  	 
+		    	 break;
+		     case KEY_POUND:
+		    	 keyCode = KeyEvent.KEYCODE_POUND;
+		    	 break;
+		     case KEY_DELETE:
+		    	 keyCode = KeyEvent.KEYCODE_DEL;
+		     default:
+		    	 break;
+		}
+
+		return keyCode;
+	}
+
+	@Override
+	public void onKeyClick(KeyDigit key) {
+		int keyCode = getKeyCode(key);
+	
+		if (keyCode != -1){
+			if (keyCode == KeyEvent.KEYCODE_DEL){
+				KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+			    mDigitsEditText.onKeyDown(keyCode, event);
+			}
+		}
+	}
+
+	@Override
+	public void onKeyLongClick(KeyDigit key) {
+		int keyCode = getKeyCode(key);
+
+		if (keyCode != -1){
+			if (keyCode == KeyEvent.KEYCODE_DEL){
+				cleanDigits();
+			}
+		}
+	}
+	
+
+	private void handleCallEvent(Context context){
+		  String number = mDigitsEditText.getText().toString();
+          
+		  if (TextUtils.isEmpty(number)){
+			  return ;
+		  }
+
+		  makeCall(context, number, -1);
+          cleanDigits();
+	}
+	
+	  public static void makeCall(Context context, String number, int slotID) {
+
+	        Intent intent = CallUtil.getCallIntent(context, number, slotID);
+	        context.startActivity(intent);
+
+	    }
+
+	
+	private void cleanDigits() {
+	        mDigitsEditText.getText().clear();
+	 }
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		case R.id.dialpad_single_card:
+			handleCallEvent(mContext);
+			break;
+		}
+	}
 
 }
