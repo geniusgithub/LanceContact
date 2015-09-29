@@ -18,7 +18,7 @@ import com.geniusgithub.contact.main.PersionFragment;
 import com.geniusgithub.contact.util.CommonLog;
 import com.geniusgithub.contact.util.LogFactory;
 
-public class ContactMainActivity extends BaseActivity{
+public class ContactMainActivity extends BaseActivity implements ITabInterface{
 
 	private static final CommonLog log = LogFactory.createLog(ContactMainActivity.class.getSimpleName());
 	
@@ -105,6 +105,26 @@ public class ContactMainActivity extends BaseActivity{
 		
 		mTabManager.setTab(0);
 		
+	}
+
+	@Override
+	public void setTab(int position) {
+
+	
+	}
+
+	@Override
+	public void onTabSelect(int position) {
+	}
+
+	@Override
+	public void onTabClick(int posotion) {
+
+	}
+
+	@Override
+	public int getCurrentTabPosition(Context context) {
+		return 0;
 	}
 	
 

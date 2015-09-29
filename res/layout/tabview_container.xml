@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/ib_dialpad"
                 android:layout_above="@id/tv_dialpad"
-                android:src="@drawable/tab_weixin"
+                android:src="@drawable/tab_dialpad"
                 style="@style/TabImage"/>
 
 <!--             <TextView -->
@@ -59,7 +59,7 @@
             <ImageView
                 android:id="@+id/ib_calllog"
                 android:layout_above="@id/tv_calllog"
-                android:src="@drawable/tab_find"
+                android:src="@drawable/tab_calllog"
                 style="@style/TabImage"/>
             
 
@@ -103,7 +103,7 @@
  
              <TextView
               android:id="@+id/tv_profile"
-              android:text="我"
+              android:text="@string/tab_setting"
               style="@style/TabText"
               android:textColor="@color/tab_text"/>
                         

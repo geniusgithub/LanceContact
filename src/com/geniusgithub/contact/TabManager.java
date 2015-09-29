@@ -10,6 +10,7 @@ import android.content.Context;
 
 import com.geniusgithub.contact.base.BaseFragment;
 import com.geniusgithub.contact.base.ITabInterface;
+import com.geniusgithub.contact.dialer.DialpadFragment;
 import com.geniusgithub.contact.util.CommonLog;
 import com.geniusgithub.contact.util.LogFactory;
 
@@ -97,5 +98,19 @@ public class TabManager implements ITabInterface {
 	public void clearFragment(){
 		mFrMap.clear();
 		mCurrentFragment = null;
+	}
+
+	@Override
+	public void onTabClick(int position) {
+
+		if (position == 0){
+			BaseFragment fragment = findFragment(position);
+			if (fragment != null){
+				if (fragment instanceof DialpadFragment){
+					((DialpadFragment) fragment).toggleDialpad(mContext);
+				}
+			}
+		}
+	
 	}
 }

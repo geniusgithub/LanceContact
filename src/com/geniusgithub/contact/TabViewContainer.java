@@ -1,6 +1,9 @@
 package com.geniusgithub.contact;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
+import android.graphics.drawable.RippleDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +28,7 @@ public class TabViewContainer extends ViewGroup implements OnClickListener, ITab
 	private View[] mTabViews;
 	private ImageView[] mImageViews;
 	private TextView[] mTextViews;
-	
+	private ColorStateList mRippleColor;
 	private ITabInterface mInterface;
 	private int mCurrentTabPosition = -1;
    
@@ -38,14 +41,20 @@ public class TabViewContainer extends ViewGroup implements OnClickListener, ITab
 
    
         mContext = context;
-        initWidget(context);
+        initWidget(context, attrs);
         
     }
     
 
 
-    private void initWidget(Context context){
+    private void initWidget(Context context, AttributeSet attrs){
 
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Dialpad);
+        mRippleColor = a.getColorStateList(R.styleable.Dialpad_dialpad_key_button_touch_tint);
+        a.recycle();
+      
+        
+        
         mRootView =  LayoutInflater.from(mContext).inflate(R.layout.tabview_container, null, false);  
     	
     	mTabViews = new View[CHILD_COUNT];
@@ -68,11 +77,17 @@ public class TabViewContainer extends ViewGroup implements OnClickListener, ITab
     	
     	addView(mRootView); 
     	
-    	for (View  view : mTabViews) {
+    	for (View  view : mTabViews) {		  
+            final RippleDrawable rippleBackground =
+                    (RippleDrawable) getContext().getDrawable(R.drawable.btn_dialpad_key);
+            if (mRippleColor != null) {
+                rippleBackground.setColor(mRippleColor);
+            }
+    		view.setBackground(rippleBackground);
 			view.setOnClickListener(this);
 		}
     	
-  
+    	 
     }
     
     public void setTabListener(ITabInterface object){
@@ -109,15 +124,19 @@ public class TabViewContainer extends ViewGroup implements OnClickListener, ITab
 		switch(v.getId()){
 			case R.id.re_dialpad:
 				setTab(0);
+				onTabClick(0);
 				break;
 			case R.id.re_calllog:
 				setTab(1);
+				onTabClick(1);
 				break;
 			case R.id.re_contact_list:
 				setTab(2);
+				onTabClick(2);
 				break;
 			case R.id.re_profile:
 				setTab(3);
+				onTabClick(3);
 				break;
 		}
 	}
@@ -148,5 +167,12 @@ public class TabViewContainer extends ViewGroup implements OnClickListener, ITab
 	@Override
 	public int getCurrentTabPosition(Context context) {
 		return mCurrentTabPosition;
+	}
+
+	@Override
+	public void onTabClick(int posotion) {
+		if (mInterface != null){
+			mInterface.onTabClick(posotion);
+		}
 	}
 }
