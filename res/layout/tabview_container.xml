@@ -28,6 +28,7 @@
                 android:id="@+id/ib_dialpad"
                 android:layout_above="@id/tv_dialpad"
                 android:src="@drawable/tab_dialpad"
+                android:layout_marginBottom="4dp"
                 style="@style/TabImage"/>
 
 <!--             <TextView -->
@@ -60,6 +61,7 @@
                 android:id="@+id/ib_calllog"
                 android:layout_above="@id/tv_calllog"
                 android:src="@drawable/tab_calllog"
+                android:layout_marginBottom="4dp"
                 style="@style/TabImage"/>
             
 
@@ -86,6 +88,7 @@
                 android:id="@+id/ib_contact_list"
                 android:layout_above="@id/tv_contact_list"
                 android:src="@drawable/tab_contact_list"
+                android:layout_marginBottom="4dp"
                 style="@style/TabImage"/>
             
 
@@ -111,6 +114,7 @@
                 android:id="@+id/ib_profile"
                 android:layout_above="@id/tv_profile"
                 android:src="@drawable/tab_profile"
+                android:layout_marginBottom="4dp"
                 style="@style/TabImage"/>
 
 

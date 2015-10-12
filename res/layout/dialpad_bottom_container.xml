@@ -33,15 +33,11 @@
         android:background="@color/empty_transparent" >
 
 
-            <ImageButton
+            <ImageView
             android:id="@+id/addContactButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/btn_dialpad_key"
-            android:tint="@color/dialpad_icon_tint"
-            android:paddingLeft="@dimen/dialpad_digits_padding"
-            android:paddingRight="@dimen/dialpad_digits_padding"
-            android:src="@drawable/ic_addcontact"
+            android:src="@drawable/selector_dialer_addcontact"
             android:visibility="gone" />
                     
                     
@@ -114,15 +110,11 @@
         android:gravity="center"
         android:background="@color/empty_transparent" >
             
-            <ImageButton
+            <ImageView
             android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/btn_dialpad_key"
-            android:tint="@color/dialpad_icon_tint"
-            android:paddingLeft="@dimen/dialpad_digits_padding"
-            android:paddingRight="@dimen/dialpad_digits_padding"
-            android:src="@drawable/ic_dialpad_delete"
+            android:src="@drawable/selector_dialer_delete"
             android:visibility="gone" />
 
                 

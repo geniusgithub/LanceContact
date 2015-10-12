@@ -4,7 +4,8 @@
     <string name="app_name">LanceContact</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+  
+    
     <string name="tab_dialpad">拨号</string>
     <string name="tab_calllog">通话记录</string>
     <string name="tab_contact">联系人</string>

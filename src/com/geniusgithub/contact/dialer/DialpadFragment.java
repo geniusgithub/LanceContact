@@ -21,6 +21,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.geniusgithub.contact.R;
 import com.geniusgithub.contact.base.BaseFragment;
@@ -41,8 +42,8 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	private EditText mDigitsEditText;		
 	  
 	private ImageButton mSingCardBtn;
-	private ImageButton mDeleteBtn;
-	private ImageButton mAddContactBtn;
+	private ImageView mDeleteBtn;
+	private ImageView mAddContactBtn;
 	  
     private Animation mSlideIn;
     private Animation mSlideOut;
@@ -144,11 +145,11 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
        mSingCardBtn = (ImageButton) mFragmentContainer.findViewById(R.id.dialpad_single_card);
        mSingCardBtn.setOnClickListener(this);
        
-       mDeleteBtn = (ImageButton) mFragmentContainer.findViewById(R.id.deleteButton);
+       mDeleteBtn = (ImageView) mFragmentContainer.findViewById(R.id.deleteButton);
        mDeleteBtn.setOnClickListener(this);
        mDeleteBtn.setOnLongClickListener(this);
        
-       mAddContactBtn = (ImageButton) mFragmentContainer.findViewById(R.id.addContactButton);
+       mAddContactBtn = (ImageView) mFragmentContainer.findViewById(R.id.addContactButton);
        mAddContactBtn.setOnClickListener(this);
    }
 
@@ -349,6 +350,7 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 			mDigitsEditText.onKeyDown(KeyEvent.KEYCODE_DEL, new KeyEvent(KeyEvent.ACTION_DOWN,  KeyEvent.KEYCODE_DEL));
 			break;
 		case R.id.addContactButton:
+			
 			break;
 		}
 	}

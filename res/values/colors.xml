@@ -16,7 +16,7 @@
     <color name="dialer_theme_color_dark">#0277bd</color>
     <color name="background_dialpad">#fcfcfc</color>
     <color name="background_dialpad_pressed">#ececec</color>
-    <color name="dialpad_primary_text_color">#416587</color>
+    <color name="dialpad_primary_text_color">#4c4948</color>
     <color name="dialpad_secondary_text_color">#adadae</color>
     <color name="dialpad_digits_text_color">#333</color>
     <color name="dialpad_separator_line_color">#dadada</color>
@@ -26,4 +26,6 @@
 	<color name="dialpad_call_button_text_color">#ffffff</color>
 	
 	<color name="floating_action_button_touch_tint">#80ffffff</color>
+	
+	 <drawable name="bk_color">#ffffff</drawable>
 </resources>

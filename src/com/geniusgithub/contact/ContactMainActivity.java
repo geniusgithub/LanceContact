@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.geniusgithub.contact.base.BaseActivity;
@@ -33,7 +34,8 @@ public class ContactMainActivity extends BaseActivity implements ITabInterface{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Drawable drawable = getResources().getDrawable(R.drawable.bk_color);
+		getWindow().setBackgroundDrawable(drawable);
 		setContentView(R.layout.main_layout);
 		
 		initView();
