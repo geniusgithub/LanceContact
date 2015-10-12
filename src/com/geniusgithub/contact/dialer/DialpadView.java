@@ -33,6 +33,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -62,7 +63,7 @@ public class DialpadView extends LinearLayout implements OnClickListener, OnPres
 		KEY_ZERO,
 		KEY_START,
 		KEY_POUND,
-		KEY_DELETE
+	//	KEY_DELETE
 	}
 	public static interface IDigitKeyListener{
 		public void onKeyPress(KeyDigit key);
@@ -85,8 +86,9 @@ public class DialpadView extends LinearLayout implements OnClickListener, OnPres
      */
     private final boolean mIsRtl;
 
+    private ViewGroup mDigitContainer;
     private EditText mDigits;
-    private ImageButton mDelete;
+//    private ImageButton mDelete;
 //    private View mOverflowMenuButton;
     private ColorStateList mRippleColor;
 
@@ -132,10 +134,12 @@ public class DialpadView extends LinearLayout implements OnClickListener, OnPres
     protected void onFinishInflate() {
         setupKeypad();
         mDigits = (EditText) findViewById(R.id.et_inputdigits);
-        mDelete = (ImageButton) findViewById(R.id.deleteButton);
-        
-        mDelete.setOnClickListener(this);
-        mDelete.setOnLongClickListener(this);
+//        mDelete = (ImageButton) findViewById(R.id.deleteButton);
+//        
+//        mDelete.setOnClickListener(this);
+//        mDelete.setOnLongClickListener(this);
+        mDigitContainer = (ViewGroup) findViewById(R.id.digits_container);
+
 //        mOverflowMenuButton = findViewById(R.id.dialpad_overflow);
     }
 
@@ -206,20 +210,20 @@ public class DialpadView extends LinearLayout implements OnClickListener, OnPres
      * @param canBeEdited If true, the backspace button will be shown and the digits EditText
      *         will be configured to allow text manipulation.
      */
-    public void setCanDigitsBeEdited(boolean canBeEdited) {
-        View deleteButton = findViewById(R.id.deleteButton);
-        deleteButton.setVisibility(canBeEdited ? View.VISIBLE : View.GONE);
-//        View overflowMenuButton = findViewById(R.id.dialpad_overflow);
-//        overflowMenuButton.setVisibility(canBeEdited ? View.VISIBLE : View.GONE);
-
-        EditText digits = (EditText) findViewById(R.id.et_inputdigits);
-        digits.setClickable(canBeEdited);
-        digits.setLongClickable(canBeEdited);
-        digits.setFocusableInTouchMode(canBeEdited);
-        digits.setCursorVisible(false);
-
-        mCanDigitsBeEdited = canBeEdited;
-    }
+//    public void setCanDigitsBeEdited(boolean canBeEdited) {
+//        View deleteButton = findViewById(R.id.deleteButton);
+//        deleteButton.setVisibility(canBeEdited ? View.VISIBLE : View.GONE);
+////        View overflowMenuButton = findViewById(R.id.dialpad_overflow);
+////        overflowMenuButton.setVisibility(canBeEdited ? View.VISIBLE : View.GONE);
+//
+//        EditText digits = (EditText) findViewById(R.id.et_inputdigits);
+//        digits.setClickable(canBeEdited);
+//        digits.setLongClickable(canBeEdited);
+//        digits.setFocusableInTouchMode(canBeEdited);
+//        digits.setCursorVisible(false);
+//
+//        mCanDigitsBeEdited = canBeEdited;
+//    }
 
     public boolean canDigitsBeEdited() {
         return mCanDigitsBeEdited;
@@ -268,9 +272,9 @@ public class DialpadView extends LinearLayout implements OnClickListener, OnPres
         return mDigits;
     }
 
-    public ImageButton getDeleteButton() {
-        return mDelete;
-    }
+//    public ImageButton getDeleteButton() {
+//        return mDelete;
+//    }
 
 //    public View getOverflowMenuButton() {
 //        return mOverflowMenuButton;
@@ -479,12 +483,15 @@ public class DialpadView extends LinearLayout implements OnClickListener, OnPres
 	        case R.id.pound:
 	           	value = KeyDigit.KEY_POUND;
 	        	break;
-	        case R.id.deleteButton:
-	        	value = KeyDigit.KEY_DELETE;
-	        	break;
+//	        case R.id.deleteButton:
+//	        	value = KeyDigit.KEY_DELETE;
+//	        	break;
 			}
 		return value;
 	}
 
+	public void showDigitContainer(boolean show){
+		mDigitContainer.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
 
 }

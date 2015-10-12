@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -31,7 +32,7 @@ import com.geniusgithub.contact.util.CommonLog;
 import com.geniusgithub.contact.util.LogFactory;
 import com.geniusgithub.contact.util.PhoneNumberFormatter;
 
-public class DialpadFragment extends BaseFragment implements TextWatcher, IDigitKeyListener, OnClickListener{
+public class DialpadFragment extends BaseFragment implements TextWatcher, IDigitKeyListener, OnClickListener, OnLongClickListener{
 
 	private static final CommonLog log = LogFactory.createLog(DialpadFragment.class.getSimpleName());
 	private View mFragmentContainer;
@@ -40,6 +41,8 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	private EditText mDigitsEditText;		
 	  
 	private ImageButton mSingCardBtn;
+	private ImageButton mDeleteBtn;
+	private ImageButton mAddContactBtn;
 	  
     private Animation mSlideIn;
     private Animation mSlideOut;
@@ -129,17 +132,24 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
     public void onViewCreated(View view, Bundle savedInstanceState) {    
 	   mDialpadContainer = (ViewGroup) mFragmentContainer.findViewById(R.id.dialpad_container);
 	   mDigitDialpad = (DialpadView) mFragmentContainer.findViewById(R.id.dialpad_view);
-	   mDigitDialpad.setCanDigitsBeEdited(true);
 	   mDigitDialpad.setKeyListener(this);
 	   
 	   mDigitsEditText = mDigitDialpad.getDigits();	
        mDigitsEditText.addTextChangedListener(this);
        mDigitsEditText.setKeyListener(DialerKeyListener.getInstance());
        mDigitsEditText.setElegantTextHeight(false);
+       mDigitsEditText.setCursorVisible(true);
        PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(getActivity(), mDigitsEditText);
        
        mSingCardBtn = (ImageButton) mFragmentContainer.findViewById(R.id.dialpad_single_card);
        mSingCardBtn.setOnClickListener(this);
+       
+       mDeleteBtn = (ImageButton) mFragmentContainer.findViewById(R.id.deleteButton);
+       mDeleteBtn.setOnClickListener(this);
+       mDeleteBtn.setOnLongClickListener(this);
+       
+       mAddContactBtn = (ImageButton) mFragmentContainer.findViewById(R.id.addContactButton);
+       mAddContactBtn.setOnClickListener(this);
    }
 
 	@Override
@@ -166,29 +176,41 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	}
 
 	public void toggleDialpad(Context context){
+		
 		if (mDialpadContainer.isShown()){
-			hideDialpad(context);
+			showDialpad(false);
 		}else{
-			showDialpad(context);
+			showDialpad(true);
 		}
 	}
 	
-	public void showDialpad(Context context){
-	//	mDigitDialpad.animateShow();
-		mDialpadContainer.startAnimation(mSlideIn);
-	}
-	
-	public void hideDialpad(Context context){
+	public void showDialpad(boolean show){
 
-		mDialpadContainer.startAnimation(mSlideOut);
-	       
+		if (show){
+			mDialpadContainer.startAnimation(mSlideIn);
+		}else{
+			mDialpadContainer.startAnimation(mSlideOut);
+		}
+	
 	}
 	
+	public void showBottomButton(boolean show){
+		if (show){
+			mDeleteBtn.setVisibility(View.VISIBLE);
+			mAddContactBtn.setVisibility(View.VISIBLE);
+		}else{
+			mDeleteBtn.setVisibility(View.GONE);
+			mAddContactBtn.setVisibility(View.GONE);
+		}
+	}
 	
-    private void keyPressed(int keyCode) {
-        KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
-        mDigitsEditText.onKeyDown(keyCode, event);
+    private boolean isDigitsEmpty() {
+        return mDigitsEditText.length() == 0;
     }
+	  
+	private void cleanDigits() {
+	        mDigitsEditText.getText().clear();
+	}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
@@ -205,14 +227,16 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 
 	@Override
 	public void afterTextChanged(Editable s) {
-		// TODO Auto-generated method stub
-		
+
+		mDigitDialpad.showDigitContainer(!isDigitsEmpty());
+		showBottomButton(!isDigitsEmpty());
+	
 	}
 
 	@Override
 	public void onKeyPress(KeyDigit key) {
 		int keyCode = getKeyCode(key);
-		Log.d("wyj", "onPress keyCode = " + keyCode);
+
 		if (keyCode != -1){
 			KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
 		    mDigitsEditText.onKeyDown(keyCode, event);
@@ -259,8 +283,8 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 		     case KEY_POUND:
 		    	 keyCode = KeyEvent.KEYCODE_POUND;
 		    	 break;
-		     case KEY_DELETE:
-		    	 keyCode = KeyEvent.KEYCODE_DEL;
+//		     case KEY_DELETE:
+//		    	 keyCode = KeyEvent.KEYCODE_DEL;
 		     default:
 		    	 break;
 		}
@@ -292,6 +316,8 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	}
 	
 
+	
+	
 	private void handleCallEvent(Context context){
 		  String number = mDigitsEditText.getText().toString();
           
@@ -303,17 +329,14 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
           cleanDigits();
 	}
 	
-	  public static void makeCall(Context context, String number, int slotID) {
+    public static void makeCall(Context context, String number, int slotID) {
 
-	        Intent intent = CallUtil.getCallIntent(context, number, slotID);
-	        context.startActivity(intent);
+        Intent intent = CallUtil.getCallIntent(context, number, slotID);
+        context.startActivity(intent);
 
-	    }
+    }
 
-	
-	private void cleanDigits() {
-	        mDigitsEditText.getText().clear();
-	 }
+
 
 	@Override
 	public void onClick(View v) {
@@ -321,7 +344,24 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 		case R.id.dialpad_single_card:
 			handleCallEvent(mContext);
 			break;
+		case R.id.deleteButton:
+			log.d("mDigitsEditText onKeyDown");
+			mDigitsEditText.onKeyDown(KeyEvent.KEYCODE_DEL, new KeyEvent(KeyEvent.ACTION_DOWN,  KeyEvent.KEYCODE_DEL));
+			break;
+		case R.id.addContactButton:
+			break;
 		}
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		switch(v.getId()){
+			case R.id.deleteButton:
+				cleanDigits();
+				break;
+		}
+		
+		return false;
 	}
 
 }

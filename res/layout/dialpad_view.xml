@@ -29,7 +29,8 @@
         android:id="@+id/digits_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dialpad_digits_height"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 <!--       android:src="@drawable/ic_overflow_menu" -->
 <!--         <ImageButton android:id="@+id/dialpad_overflow" -->
 <!--             android:background="@drawable/volte_close" -->
@@ -56,23 +57,13 @@
             android:textSize="@dimen/dialpad_digits_text_size"
             android:freezesText="true"
             android:focusableInTouchMode="true"
-            android:cursorVisible="false"
             android:textColor="@color/dialpad_digits_text_color"
             android:textCursorDrawable="@null"
             android:fontFamily="sans-serif-light"
             android:textStyle="normal"
             ex:resizing_text_min_size="@dimen/dialpad_digits_text_min_size" />
 
-        <ImageButton
-            android:id="@+id/deleteButton"
-            android:background="@drawable/btn_dialpad_key"
-            android:tint="@color/dialpad_icon_tint"
-            android:paddingLeft="@dimen/dialpad_digits_padding"
-            android:paddingRight="@dimen/dialpad_digits_padding"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:state_enabled="false"
-            android:src="@drawable/ic_dialpad_delete" />
+
     </LinearLayout>
 
     <View
