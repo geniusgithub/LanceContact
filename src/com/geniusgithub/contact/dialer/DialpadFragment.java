@@ -48,8 +48,6 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
     private Animation mSlideIn;
     private Animation mSlideOut;
     
-    
-    
 	
     public DialpadFragment(Context context) {
 		super(context);

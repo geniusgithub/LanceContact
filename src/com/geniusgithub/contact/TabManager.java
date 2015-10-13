@@ -10,6 +10,7 @@ import android.content.Context;
 
 import com.geniusgithub.contact.base.BaseFragment;
 import com.geniusgithub.contact.base.ITabInterface;
+import com.geniusgithub.contact.contact.ContactManager;
 import com.geniusgithub.contact.dialer.DialpadFragment;
 import com.geniusgithub.contact.util.CommonLog;
 import com.geniusgithub.contact.util.LogFactory;
@@ -111,6 +112,7 @@ public class TabManager implements ITabInterface {
 				}
 			}
 		}
+	
 	
 	}
 }
