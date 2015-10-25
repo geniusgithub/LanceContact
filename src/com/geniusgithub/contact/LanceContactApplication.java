@@ -14,6 +14,7 @@ import android.os.Message;
 
 import com.geniusgithub.contact.contact.ContactManager;
 import com.geniusgithub.contact.contact.ContactsHelper.OnContactsLoad;
+import com.geniusgithub.contact.dialer.util.KeyboardTone;
 import com.geniusgithub.contact.util.CommonLog;
 import com.geniusgithub.contact.util.LogFactory;
 
@@ -46,6 +47,9 @@ public class LanceContactApplication extends Application {
 		};
 
 		ContactManager.getInstance(this).startLoadContact();
+		
+		KeyboardTone.getInstance(this).init();
+		
 	}
 
 	

@@ -27,6 +27,8 @@ import com.geniusgithub.contact.R;
 import com.geniusgithub.contact.base.BaseFragment;
 import com.geniusgithub.contact.dialer.DialpadView.IDigitKeyListener;
 import com.geniusgithub.contact.dialer.DialpadView.KeyDigit;
+import com.geniusgithub.contact.dialer.util.HapticFeedback;
+import com.geniusgithub.contact.dialer.util.KeyboardTone;
 import com.geniusgithub.contact.util.AnimUtils;
 import com.geniusgithub.contact.util.CallUtil;
 import com.geniusgithub.contact.util.CommonLog;
@@ -48,6 +50,9 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
     private Animation mSlideIn;
     private Animation mSlideOut;
     
+    
+    private final HapticFeedback mHaptic = new HapticFeedback(); 
+    private KeyboardTone mKeyboardTone;
 	
     public DialpadFragment(Context context) {
 		super(context);
@@ -115,6 +120,9 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	                
 	            }
 	        });
+	        
+	        mHaptic.init(mContext, true);
+	        mKeyboardTone = KeyboardTone.getInstance(mContext);
 	}
 
 	@Override
@@ -135,7 +143,7 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	   
 	   mDigitsEditText = mDigitDialpad.getDigits();	
        mDigitsEditText.addTextChangedListener(this);
-       mDigitsEditText.setKeyListener(DialerKeyListener.getInstance());
+      // mDigitsEditText.setKeyListener(DialerKeyListener.getInstance());
        mDigitsEditText.setElegantTextHeight(false);
        mDigitsEditText.setCursorVisible(true);
        PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(getActivity(), mDigitsEditText);
@@ -161,6 +169,9 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 		super.onResume();
 		
 		log.i("onResume");
+		
+		mHaptic.checkSystemSetting();
+		mKeyboardTone.checkSystemSetting();
 	}
 	
 	@Override
@@ -237,6 +248,8 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 		int keyCode = getKeyCode(key);
 
 		if (keyCode != -1){
+			mHaptic.vibrate();
+			mKeyboardTone.playTone(key);
 			KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
 		    mDigitsEditText.onKeyDown(keyCode, event);
 		}
@@ -293,31 +306,50 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 
 	@Override
 	public void onKeyClick(KeyDigit key) {
-		int keyCode = getKeyCode(key);
-	
-		if (keyCode != -1){
-			if (keyCode == KeyEvent.KEYCODE_DEL){
-				KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
-			    mDigitsEditText.onKeyDown(keyCode, event);
-			}
-		}
+//		int keyCode = getKeyCode(key);
+//	
+//		if (keyCode != -1){
+//			if (keyCode == KeyEvent.KEYCODE_DEL){
+//				KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+//			    mDigitsEditText.onKeyDown(keyCode, event);
+//			}
+//		}
 	}
 
 	@Override
 	public void onKeyLongClick(KeyDigit key) {
 		int keyCode = getKeyCode(key);
-
-		if (keyCode != -1){
-			if (keyCode == KeyEvent.KEYCODE_DEL){
-				cleanDigits();
+		KeyEvent event = null;
+			switch(keyCode){
+				case  KeyEvent.KEYCODE_DEL:
+					cleanDigits();
+					break;
+				case  KeyEvent.KEYCODE_STAR:
+				    removePreviousDigitIfPossible();
+				    event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_P);
+				    mDigitsEditText.onKeyDown(keyCode, event);
+					break;
+				case  KeyEvent.KEYCODE_POUND:
+				    removePreviousDigitIfPossible();
+					event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_W);
+				    mDigitsEditText.onKeyDown(keyCode, event);
+					break;
+				case  KeyEvent.KEYCODE_0:
+				    removePreviousDigitIfPossible();
+					event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PLUS);
+				    mDigitsEditText.onKeyDown(keyCode, event);
+					break;
+				case  KeyEvent.KEYCODE_1:
+					break;
 			}
-		}
+
 	}
 	
 
 	
 	
 	private void handleCallEvent(Context context){
+		  
 		  String number = mDigitsEditText.getText().toString();
           
 		  if (TextUtils.isEmpty(number)){
@@ -341,14 +373,16 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.dialpad_single_card:
+			mHaptic.vibrate();
 			handleCallEvent(mContext);
 			break;
 		case R.id.deleteButton:
+			mHaptic.vibrate();
 			log.d("mDigitsEditText onKeyDown");
 			mDigitsEditText.onKeyDown(KeyEvent.KEYCODE_DEL, new KeyEvent(KeyEvent.ACTION_DOWN,  KeyEvent.KEYCODE_DEL));
 			break;
 		case R.id.addContactButton:
-			
+			mHaptic.vibrate();
 			break;
 		}
 	}
@@ -357,6 +391,7 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	public boolean onLongClick(View v) {
 		switch(v.getId()){
 			case R.id.deleteButton:
+				mHaptic.vibrate();
 				cleanDigits();
 				break;
 		}
@@ -364,4 +399,15 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 		return false;
 	}
 
+    /**
+     * Remove the digit just before the current position. This can be used if we want to replace
+     * the previous digit or cancel previously entered character.
+     */
+    private void removePreviousDigitIfPossible() {
+        final int currentPosition = mDigitsEditText.getSelectionStart();
+        if (currentPosition > 0) {
+        	mDigitsEditText.setSelection(currentPosition);
+        	mDigitsEditText.getText().delete(currentPosition - 1, currentPosition);
+        }
+    }
 }
