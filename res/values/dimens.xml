@@ -12,6 +12,8 @@
     <dimen name="shadow_length">10dp</dimen>
     
     
+    <dimen name="list_section_divider_min_height">32dip</dimen>
+    
      <!-- Text dimensions for dialpad keys -->
     <dimen name="dialpad_key_numbers_size">33dp</dimen>
     <dimen name="dialpad_key_letters_size">12dp</dimen>
@@ -65,5 +67,72 @@
     <dimen name="floating_action_button_margin_bottom">10dp</dimen>
     <!-- Offset of bottom margin of the floating action button used when dialpad is up -->
     <dimen name="floating_action_button_dialpad_margin_bottom_offset">4dp</dimen>
+    
+    
 
+    
+    
+     <!-- Height of the actionBar - this is 8dps bigger than the platform standard to give more
+    room to the search box-->
+    <dimen name="action_bar_height">56dp</dimen>
+    <dimen name="action_bar_height_large">64dp</dimen>
+    <dimen name="action_bar_elevation">2dp</dimen>
+    <dimen name="tab_height">43dp</dimen>
+    <!-- actionbar height + tab height -->
+    <dimen name="actionbar_and_tab_height">107dp</dimen>
+    <dimen name="actionbar_contentInsetStart">72dp</dimen>
+    
+    
+    
+    
+    <!-- Call Log -->
+    <dimen name="call_log_call_action_size">32dip</dimen>
+    <dimen name="call_log_call_action_width">54dp</dimen>
+    <dimen name="call_log_icon_margin">4dip</dimen>
+    <dimen name="call_log_inner_margin">13dip</dimen>
+    <dimen name="call_log_outer_margin">8dp</dimen>
+    <dimen name="call_log_start_margin">16dp</dimen>
+    <dimen name="call_log_indent_margin">24dip</dimen>
+    <dimen name="call_log_name_margin_bottom">2dp</dimen>
+    <dimen name="call_log_list_item_height">56dip</dimen>
+
+    <dimen name="empty_list_message_text_size">16sp</dimen>
+    
+     <!-- Size of contact photos in the call log and call details. -->
+    <dimen name="contact_photo_size">40dp</dimen>
+    <dimen name="call_detail_button_spacing">2dip</dimen>
+    <dimen name="call_detail_horizontal_margin">16dp</dimen>
+    <dimen name="call_detail_top_margin">36dp</dimen>
+    <dimen name="call_detail_bottom_margin">32dp</dimen>
+    <dimen name="call_detail_header_top_margin">20dp</dimen>
+    <dimen name="call_detail_header_bottom_margin">9dp</dimen>
+    <dimen name="call_detail_translation_z">0.5dp</dimen>
+    <dimen name="transcription_top_margin">18dp</dimen>
+    <dimen name="transcription_bottom_margin">18dp</dimen>
+    
+    <!-- Size of call provider icon width and height -->
+    <dimen name="call_provider_small_icon_size">12dp</dimen>
+
+    <!-- Match call_button_height to Phone's dimens/in_call_end_button_height -->
+    <dimen name="call_button_height">74dp</dimen>
+        
+    
+    
+    <!-- Padding to the left and right of call log action buttons. -->
+    <dimen name="call_log_action_horizontal_padding">8dp</dimen>
+    <!-- Left-padding for the call log action buttons - ensures the buttons align with the text
+         to the right of the contact badge.  Adjust when any of the following change:
+         call_log_action_horizontal_padding
+         call_log_list_contact_photo_size  -->
+    <dimen name="call_log_actions_left_padding">64dp</dimen>
+    <dimen name="call_log_primary_text_size">16sp</dimen>
+    <dimen name="call_log_secondary_text_size">14sp</dimen>
+    <dimen name="call_log_list_item_actions_text_size">12sp</dimen>
+    <!-- Height of the call log actions section for each call log entry -->
+    <dimen name="call_log_action_height">44dp</dimen>
+    <!-- Z Translation of expanded call log items. -->
+    <dimen name="call_log_expanded_translation_z">2dp</dimen>
+    <dimen name="call_log_day_group_padding_top">15dp</dimen>
+    <dimen name="call_log_day_group_padding_bottom">9dp</dimen>
+        
 </resources>

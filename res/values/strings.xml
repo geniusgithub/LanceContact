@@ -62,5 +62,35 @@
     <!-- Do not translate. -->
     <string name="dialpad_pound_letters">W</string>
     
+
+    <string name="recentCalls_editNumberBeforeCall">"呼叫之前编辑号码"</string>
+    <string name="recentCalls_addToContact">"添加到通讯录"</string>
+    <string name="recentCalls_removeFromRecentList">"从通话记录中删除"</string>
+    <string name="recentCalls_deleteAll">"清除通话记录"</string>
+    <string name="recentCalls_empty">"您没有通话记录。"</string>
+    <string name="clearCallLogConfirmation_title">"要清除通话记录吗？"</string>
+    <string name="clearCallLogConfirmation">"系统将删除您的所有通话记录。"</string>
+    <string name="clearCallLogProgress_title">"正在清除通话记录..."</string>
+    <string name="call_log_action_call_back">"回电"</string>
+    <string name="call_log_action_video_call">"视频通话"</string>
+    <string name="call_log_action_voicemail">"听取"</string>
+    <string name="call_log_action_details">"详情"</string>
+    <string name="call_log_action_report">"举报"</string>
+    <string name="call_log_header_today">"今天"</string>
+    <string name="call_log_header_yesterday">"昨天"</string>
+    <string name="call_log_header_other">"更早"</string>
+    <string name="call_detail_list_header">"通话记录"</string>
+    <string name="unknown">"未知"</string>
+    <string name="voicemail">"语音信箱"</string>
+    <string name="private_num">"私密号码"</string>
+    <string name="payphone">"公用电话"</string>
+    <string name="type_incoming">"来电"</string>
+    <string name="type_outgoing">"外拨电话"</string>
+    <string name="type_missed">"未接电话"</string>
+    <string name="type_incoming_video">"视频通话来电"</string>
+    <string name="type_outgoing_video">"拨出的视频通话"</string>
+    <string name="type_missed_video">"错过的视频通话"</string>
+    <string name="type_voicemail">"语音信箱"</string>
     
+    <string name="list_delimeter">"、 "</string>
 </resources>
