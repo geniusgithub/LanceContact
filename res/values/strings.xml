@@ -90,7 +90,8 @@
     <string name="type_incoming_video">"视频通话来电"</string>
     <string name="type_outgoing_video">"拨出的视频通话"</string>
     <string name="type_missed_video">"错过的视频通话"</string>
-    <string name="type_voicemail">"语音信箱"</string>
-    
+    <string name="type_voicemail">"语音信箱"</string> 
     <string name="list_delimeter">"、 "</string>
+    
+     <!-- <string name="call_log_item_count_and_date">"(<xliff:g id="COUNT">%1$d</xliff:g>) <xliff:g id="DATE">%2$s</xliff:g>"</string> -->
 </resources>
