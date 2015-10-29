@@ -43,6 +43,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.geniusgithub.contact.R;
+import com.geniusgithub.contact.dialer.util.EmptyLoader;
+import com.geniusgithub.contact.util.DialerUtils;
 import com.geniusgithub.contact.util.GeoUtil;
 import com.geniusgithub.contact.util.ViewUtil;
 
@@ -79,10 +81,10 @@ public class CallLogFragment extends ListFragment
     /** Whether there is at least one voicemail source installed. */
     private boolean mVoicemailSourcesAvailable = false;
 
-    private VoicemailStatusHelper mVoicemailStatusHelper;
-    private View mStatusMessageView;
-    private TextView mStatusMessageText;
-    private TextView mStatusMessageAction;
+//    private VoicemailStatusHelper mVoicemailStatusHelper;
+//    private View mStatusMessageView;
+//    private TextView mStatusMessageText;
+//    private TextView mStatusMessageAction;
     private KeyguardManager mKeyguardManager;
     private View mFooterView;
 
@@ -295,11 +297,11 @@ public class CallLogFragment extends ListFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        View view = inflater.inflate(R.layout.call_log_fragment, container, false);
-        mVoicemailStatusHelper = new VoicemailStatusHelperImpl();
-        mStatusMessageView = view.findViewById(R.id.voicemail_status);
-        mStatusMessageText = (TextView) view.findViewById(R.id.voicemail_status_message);
-        mStatusMessageAction = (TextView) view.findViewById(R.id.voicemail_status_action);
+        View view = inflater.inflate(R.layout.calllog_fragment, container, false);
+    //    mVoicemailStatusHelper = new VoicemailStatusHelperImpl();
+//        mStatusMessageView = view.findViewById(R.id.voicemail_status);
+//        mStatusMessageText = (TextView) view.findViewById(R.id.voicemail_status_message);
+//        mStatusMessageAction = (TextView) view.findViewById(R.id.voicemail_status_action);
         return view;
     }
 
@@ -432,9 +434,9 @@ public class CallLogFragment extends ListFragment
             case Calls.MISSED_TYPE:
                 messageId = R.string.recentMissed_empty;
                 break;
-            case Calls.VOICEMAIL_TYPE:
-                messageId = R.string.recentVoicemails_empty;
-                break;
+//            case Calls.VOICEMAIL_TYPE:
+//                messageId = R.string.recentVoicemails_empty;
+//                break;
             case CallLogQueryHandler.CALL_TYPE_ALL:
                 messageId = R.string.recentCalls_empty;
                 break;
@@ -531,7 +533,7 @@ public class CallLogFragment extends ListFragment
             mFooterView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((HostInterface) getActivity()).showCallHistory();
+                    //((HostInterface) getActivity()).showCallHistory();
                 }
             });
         }

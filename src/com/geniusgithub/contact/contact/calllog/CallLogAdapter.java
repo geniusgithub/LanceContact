@@ -51,7 +51,9 @@ import android.widget.Toast;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.geniusgithub.contact.R;
+import com.geniusgithub.contact.dialer.util.ExpirableCache;
 import com.geniusgithub.contact.util.CallUtil;
+import com.geniusgithub.contact.util.DialerUtils;
 import com.geniusgithub.contact.util.UriUtils;
 import com.geniusgithub.contact.widget.GroupingListAdapter;
 
@@ -305,7 +307,8 @@ public class CallLogAdapter extends GroupingListAdapter
             final Intent intent = intentProvider.getIntent(mContext);
             // See IntentProvider.getCallDetailIntentProvider() for why this may be null.
             if (intent != null) {
-                DialerUtils.startActivityWithErrorToast(mContext, intent);
+            //    DialerUtils.startActivityWithErrorToast(mContext, intent);
+                mContext.startActivity(intent);
             }
         }
     }
