@@ -631,7 +631,7 @@ public class CallLogAdapter extends GroupingListAdapter
      * @param count the number of entries in the current item, greater than 1 if it is a group
      */
     private void bindView(View view, Cursor c, int count) {
-    	
+ 
         view.setAccessibilityDelegate(mAccessibilityDelegate);
         final CallLogListItemView callLogItemView = (CallLogListItemView) view;
         final CallLogListItemViews views = (CallLogListItemViews) view.getTag();

@@ -1,6 +1,5 @@
 package com.geniusgithub.contact;
 
-import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -12,8 +11,8 @@ import com.geniusgithub.contact.base.BaseActivity;
 import com.geniusgithub.contact.base.BaseActivityBinder;
 import com.geniusgithub.contact.base.BaseFragment;
 import com.geniusgithub.contact.base.ITabInterface;
+import com.geniusgithub.contact.contact.calllog.CallLogFragment;
 import com.geniusgithub.contact.dialer.DialpadFragment;
-import com.geniusgithub.contact.main.CallLogFragment;
 import com.geniusgithub.contact.main.ContactFragment;
 import com.geniusgithub.contact.main.PersionFragment;
 import com.geniusgithub.contact.util.CommonLog;

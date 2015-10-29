@@ -3,9 +3,10 @@ package com.geniusgithub.contact.util;
 
 public class LogFactory {
 	private static final String TAG = "LanceContact";
-	private static CommonLog log = null;
+	//private static CommonLog log = null;
 
 	public static CommonLog createLog() {
+		CommonLog log = null;
 		if (log == null) {
     		log = new CommonLog();
 		}
@@ -15,6 +16,7 @@ public class LogFactory {
 	}
 	
 	public static CommonLog createLog(String tag) {
+		CommonLog log = null;
 		if (log == null) {
 			log = new CommonLog();
 		}

@@ -39,25 +39,35 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.geniusgithub.contact.R;
+import com.geniusgithub.contact.base.BaseFragment;
+import com.geniusgithub.contact.dialer.DialpadFragment;
 import com.geniusgithub.contact.dialer.util.EmptyLoader;
+import com.geniusgithub.contact.util.CommonLog;
 import com.geniusgithub.contact.util.DialerUtils;
 import com.geniusgithub.contact.util.GeoUtil;
+import com.geniusgithub.contact.util.LogFactory;
 import com.geniusgithub.contact.util.ViewUtil;
 
 /**
  * Displays a list of call log entries. To filter for a particular kind of call
  * (all, missed or voicemails), specify it in the constructor.
  */
-public class CallLogFragment extends ListFragment
+public class CallLogFragment extends BaseFragment
         implements CallLogQueryHandler.Listener, CallLogAdapter.OnReportButtonClickListener,
         CallLogAdapter.CallFetcher,
         CallLogAdapter.CallItemExpandedListener {
-    private static final String TAG = "CallLogFragment";
-
+	
+	private static final CommonLog log = LogFactory.createLog(CallLogFragment.class.getSimpleName());
+	private ListView mListView;
+	
+	private View mFragmentContainer;
+	
     private static final String REPORT_DIALOG_TAG = "report_dialog";
     private String mReportDialogNumber;
     private boolean mIsReportDialogShowing;
@@ -134,16 +144,16 @@ public class CallLogFragment extends ListFragment
     // Whether or not to show the Show call history footer view
     private boolean mHasFooterView = false;
 
-    public CallLogFragment() {
-        this(CallLogQueryHandler.CALL_TYPE_ALL, -1);
+    public CallLogFragment(Context context) {
+    	super(context);
+      //  this(CallLogQueryHandler.CALL_TYPE_ALL, -1);
     }
 
-    public CallLogFragment(int filterType) {
-        this(filterType, -1);
+    public void initFragment(int filterType) {
+    	initFragment(filterType, -1);
     }
 
-    public CallLogFragment(int filterType, int logLimit) {
-        super();
+    public void initFragment(int filterType, int logLimit) {
         mCallTypeFilter = filterType;
         mLogLimit = logLimit;
     }
@@ -154,8 +164,8 @@ public class CallLogFragment extends ListFragment
      * @param filterType type of calls to include.
      * @param dateLimit limits results to calls occurring on or after the specified date.
      */
-    public CallLogFragment(int filterType, long dateLimit) {
-        this(filterType, -1, dateLimit);
+    public void initFragment(int filterType, long dateLimit) {
+    	initFragment(filterType, -1, dateLimit);
     }
 
     /**
@@ -165,14 +175,33 @@ public class CallLogFragment extends ListFragment
      * @param logLimit limits the number of results to return.
      * @param dateLimit limits results to calls occurring on or after the specified date.
      */
-    public CallLogFragment(int filterType, int logLimit, long dateLimit) {
-        this(filterType, logLimit);
+    public void initFragment(int filterType, int logLimit, long dateLimit) {
+    	initFragment(filterType, logLimit);
         mDateLimit = dateLimit;
     }
+    
+    public ListView getListView(){
+    	return mListView;
+    }
+    
+    public void setListAdapter(ListAdapter adapter){
+    	mListView.setAdapter(adapter);
+    }
+    
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+
+
+		log.i("onAttach");
+		mContext = activity;
+	}
+
 
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
+		log.i("onCreate");
         if (state != null) {
             mCallTypeFilter = state.getInt(KEY_FILTER_TYPE, mCallTypeFilter);
             mLogLimit = state.getInt(KEY_LOG_LIMIT, mLogLimit);
@@ -186,7 +215,7 @@ public class CallLogFragment extends ListFragment
         String currentCountryIso = GeoUtil.getCurrentCountryIso(getActivity());
         mAdapter = ObjectFactory.newCallLogAdapter(getActivity(), this,
                 new ContactInfoHelper(getActivity(), currentCountryIso), this, this, true);
-        setListAdapter(mAdapter);
+
         mCallLogQueryHandler = new CallLogQueryHandler(getActivity().getContentResolver(),
                 this, mLogLimit);
         mKeyguardManager =
@@ -198,8 +227,8 @@ public class CallLogFragment extends ListFragment
         // genius
 //        getActivity().getContentResolver().registerContentObserver(
 //                Status.CONTENT_URI, true, mVoicemailStatusObserver);
-        setHasOptionsMenu(true);
-        updateCallList(mCallTypeFilter, mDateLimit);
+//        setHasOptionsMenu(true);
+
 
         mExpandedItemTranslationZ =
                 getResources().getDimension(R.dimen.call_log_expanded_translation_z);
@@ -221,6 +250,7 @@ public class CallLogFragment extends ListFragment
     /** Called by the CallLogQueryHandler when the list of calls has been fetched or updated. */
     @Override
     public boolean onCallsFetched(Cursor cursor) {
+    	log.d("onCallsFetched cursor = " + cursor);
         if (getActivity() == null || getActivity().isFinishing()) {
             // Return false; we did not take ownership of the cursor
             return false;
@@ -297,17 +327,21 @@ public class CallLogFragment extends ListFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        View view = inflater.inflate(R.layout.calllog_fragment, container, false);
+
     //    mVoicemailStatusHelper = new VoicemailStatusHelperImpl();
 //        mStatusMessageView = view.findViewById(R.id.voicemail_status);
 //        mStatusMessageText = (TextView) view.findViewById(R.id.voicemail_status_message);
 //        mStatusMessageAction = (TextView) view.findViewById(R.id.voicemail_status_action);
-        return view;
+		mFragmentContainer = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.calllog_fragment, container, false); 
+		mFragmentContainer.buildLayer();
+		mListView = (ListView) mFragmentContainer.findViewById(R.id.list);
+	    return mFragmentContainer;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setListAdapter(mAdapter);
         getListView().setEmptyView(view.findViewById(R.id.empty_list_view));
         getListView().setItemsCanFocus(true);
         maybeAddFooterView();
@@ -341,7 +375,8 @@ public class CallLogFragment extends ListFragment
 
     @Override
     public void onResume() {
-        super.onResume();
+        super.onResume();  
+    	log.i("onResume ready to refreshData");
         refreshData();
     }
 
@@ -378,6 +413,7 @@ public class CallLogFragment extends ListFragment
     @Override
     public void onPause() {
         super.onPause();
+    	log.i("onPause");
         // Kill the requests thread
         mAdapter.stopRequestProcessing();
     }
@@ -391,6 +427,7 @@ public class CallLogFragment extends ListFragment
     @Override
     public void onDestroy() {
         super.onDestroy();
+     	log.i("onDestroy");
         mAdapter.stopRequestProcessing();
         mAdapter.changeCursor(null);
         getActivity().getContentResolver().unregisterContentObserver(mCallLogObserver);
@@ -416,6 +453,7 @@ public class CallLogFragment extends ListFragment
     }
 
     public void startCallsQuery() {
+    	log.d("mCallLogQueryHandler.fetchCalls mCallTypeFilter = " + mCallTypeFilter);
         mAdapter.setLoading(true);
         mCallLogQueryHandler.fetchCalls(mCallTypeFilter, mDateLimit);
     }
@@ -468,7 +506,7 @@ public class CallLogFragment extends ListFragment
     /** Requests updates to the data to be shown. */
     private void refreshData() {
         // Prevent unnecessary refresh.
-
+    	log.i("mRefreshDataRequired = " + mRefreshDataRequired);
         if (mRefreshDataRequired) {
             // Mark all entries in the contact info cache as out of date, so they will be looked up
             // again once being shown.

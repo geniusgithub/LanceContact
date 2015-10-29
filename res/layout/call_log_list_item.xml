@@ -15,7 +15,7 @@
 -->
 
 <view xmlns:android="http://schemas.android.com/apk/res/android"
-    class="com.android.dialer.calllog.CallLogListItemView"
+    class="com.geniusgithub.contact.contact.calllog.CallLogListItemView"
     android:id="@+id/call_log_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                     android:orientation="horizontal"
                     >
                     <view
-                        class="com.android.dialer.calllog.CallTypeIconsView"
+                        class="com.geniusgithub.contact.contact.calllog.CallTypeIconsView"
                         android:id="@+id/call_type_icons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"/>
     </LinearLayout>
-    Displays the extra link section
+  
     <ViewStub android:id="@+id/link_stub"
               android:layout="@layout/call_log_list_item_extra"
               android:layout_width="match_parent"
