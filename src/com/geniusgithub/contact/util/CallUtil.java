@@ -142,17 +142,21 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build.VERSION;
+import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.Intents;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
+import android.telephony.SubscriptionManager;
 
 
 /**
  * Utilities related to calls.
  */
 public class CallUtil {
-
+	private static final CommonLog log = LogFactory.createLog( CallUtil.class.getSimpleName());
     /**
      * Return an Intent for making a phone call. Scheme (e.g. tel, sip) will be determined
      * automatically.
@@ -292,5 +296,127 @@ public class CallUtil {
         }
         return false;
     }
+    
+    
+    public static Intent getCallIntent(Context context, String number, int solotID) {
+        
+        Uri uri = getCallUri(number);
+        final Intent intent = new Intent(Intent.ACTION_CALL_PRIVILEGED, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PhoneAccountHandle phoneAccounthandle = getDialNumberPhoneAccount(context,  solotID);
+        if (phoneAccounthandle != null) {
+            intent.putExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, phoneAccounthandle);
+        }
+        return intent;
+    }
+    
+    /**
+     * 
+     * @param context
+     * @param slotId
+     * @return
+     */
+  public static PhoneAccountHandle getDialNumberPhoneAccount(Context context,  int slotId){
+        
+        TelecomManager mTelecomManager = (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
+        List<PhoneAccountHandle> mPhoneAccountHandle = mTelecomManager.getAllPhoneAccountHandles();
+
+        if(mPhoneAccountHandle!=null){
+        	int size =  mPhoneAccountHandle.size();
+            log.d("getDialNumberPhoneAccount: " + " slotId=" + slotId + ", size=" + size);
+            if (size > 1){
+            	PhoneAccountHandle object = getPhoneAccountInDualCard(context, slotId, mPhoneAccountHandle);
+            	log.d("getPhoneAccountInDualCard: PhoneAccountHandle = " + object); 
+            	 return object;
+            }else if(size == 1){              
+            	log.d("getDialNumberPhoneAccount: " + "phone account handle size = 1, PhoneAccountHandle=" + mPhoneAccountHandle.get(0));
+                return mPhoneAccountHandle.get(0);
+            }
+        } else {
+        	log.d( "getDialNumberPhoneAccount: " + "phone account handle is null");
+        }
+       
+        return null;
+   }
+  
+  private static PhoneAccountHandle getPhoneAccountInDualCard(Context context,  int slotId,  List<PhoneAccountHandle>  phoneAccountList){
+      PhoneAccountHandle result = null;
+      try {
+         	if (slotId == 0 || slotId == 1){
+      		int subID = (int) getSubIdBySlot(slotId);
+      		log.d( "getSubIdBySlot(" + slotId + ") = " + subID);
+      		result = getPhoneAccountInList(phoneAccountList, subID);
+      		if (result == null){
+      			result = phoneAccountList.get(slotId);
+      		}
+      	}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.d("Catch Exception? unbeleive");
+		}
+
+  	return result;
+  }
+  
+  private static PhoneAccountHandle getPhoneAccountInList( List<PhoneAccountHandle>  phoneAccountList, int subID){
+  	String value = String.valueOf(subID);
+  	for (PhoneAccountHandle phoneAccountHandle : phoneAccountList) {
+			String id = phoneAccountHandle.getId();
+			log.d("phoneAccountHandle.getId = " + id + ", compare to subID = " + value);
+			
+			if (id != null && id.equalsIgnoreCase(value)){
+				log.d("find phoneAccout!!!return it ");
+				return phoneAccountHandle;
+			}
+		}
+  	
+  	log.e("can't find phoneAccountHandle ? unbeleive");
+  	return null;
+  }
+  
+  public static long getSubIdBySlot(int slot) {
+      long subId = -1;
+      
+      if(VERSION.SDK_INT >= 22){
+          int [] subIds = null;
+          subIds = SubscriptionManager.getSubId(slot);
+          if (subIds != null) {
+              subId = subIds[0];
+          } else {
+              log.e("getSubIdBySlot, subIds is null");
+          }
+      }else if(VERSION.SDK_INT >= 21){
+          Class[]types = { int.class};
+          Object[]params = {slot};
+          long [] subIds =(long[]) ReflectLoadMethod.MethodInvoke(null, "android.telephony.SubscriptionManager","getSubId", types, params);
+          
+          if (subIds != null) {
+              subId = subIds[0];
+          } else {
+              log.e("getSubIdBySlot, subIds is null");
+          }
+      }else{
+    	  log.e( "getSubIdBySlot, the api < 21,can't be called");
+      }
+      log.e( "getSubIdBySlot, slot " + slot + "subId " + subId);
+      return subId;
+  }
+  
+  
+  public static Intent getAddToContactIntent(CharSequence name, CharSequence phoneNumber,
+          int phoneNumberType) {
+      Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
+      intent.putExtra(Intents.Insert.PHONE, phoneNumber);
+      // Only include the name and phone type extras if they are specified (the method
+      // getAddNumberToContactIntent does not use them).
+      if (name != null) {
+          intent.putExtra(Intents.Insert.NAME, name);
+      }
+      if (phoneNumberType != -1) {
+          intent.putExtra(Intents.Insert.PHONE_TYPE, phoneNumberType);
+      }
+      intent.setType(Contacts.CONTENT_ITEM_TYPE);
+      return intent;
+  }
 }
 

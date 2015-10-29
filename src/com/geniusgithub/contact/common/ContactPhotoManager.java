@@ -16,6 +16,17 @@
 
 package com.geniusgithub.contact.common;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.lang.ref.Reference;
+import java.lang.ref.SoftReference;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import android.app.ActivityManager;
 import android.content.ComponentCallbacks2;
 import android.content.ContentResolver;
@@ -54,23 +65,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.android.contacts.common.lettertiles.LetterTileDrawable;
-import com.android.contacts.common.util.BitmapUtil;
-import com.android.contacts.common.util.UriUtils;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.lang.ref.Reference;
-import java.lang.ref.SoftReference;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import com.geniusgithub.contact.R;
+import com.geniusgithub.contact.contact.model.LetterTileDrawable;
+import com.geniusgithub.contact.util.BitmapUtil;
+import com.geniusgithub.contact.util.UriUtils;
+import com.google.android.collect.Lists;
+import com.google.android.collect.Sets;
 
 /**
  * Asynchronously loads contact photos and maintains a cache of photos.

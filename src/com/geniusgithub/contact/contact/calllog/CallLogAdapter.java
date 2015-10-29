@@ -19,7 +19,6 @@ package com.geniusgithub.contact.contact.calllog;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Objects;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -49,8 +48,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.base.Objects;
 import com.android.internal.annotations.VisibleForTesting;
 import com.geniusgithub.contact.R;
+import com.geniusgithub.contact.common.ContactPhotoManager;
+import com.geniusgithub.contact.common.ContactPhotoManager.DefaultImageRequest;
+import com.geniusgithub.contact.contact.model.Contact;
+import com.geniusgithub.contact.contact.model.ContactLoader;
 import com.geniusgithub.contact.dialer.util.ExpirableCache;
 import com.geniusgithub.contact.util.CallUtil;
 import com.geniusgithub.contact.util.DialerUtils;
@@ -1071,11 +1075,12 @@ public class CallLogAdapter extends GroupingListAdapter
                             // we have available; namely the phone number and name.
                             if (info.lookupUri == null) {
                                 final Intent intent =
-                                        DialtactsActivity.getAddToContactIntent(details.name,
+                                        CallUtil.getAddToContactIntent(details.name,
                                                 details.number,
                                                 details.numberType);
-                                DialerUtils.startActivityWithErrorToast(mContext, intent,
-                                        R.string.add_contact_not_available);
+//                                DialerUtils.startActivityWithErrorToast(mContext, intent,
+//                                        R.string.add_contact_not_available);
+                                mContext.startActivity(intent);
                             } else {
                                 addContactFromLookupUri(info.lookupUri);
                             }
@@ -1487,7 +1492,8 @@ public class CallLogAdapter extends GroupingListAdapter
         }
         intent.putExtra(ContactsContract.Intents.Insert.DATA, values);
 
-        DialerUtils.startActivityWithErrorToast(mContext, intent,
-                R.string.add_contact_not_available);
+//        DialerUtils.startActivityWithErrorToast(mContext, intent,
+//                R.string.add_contact_not_available);
+        mContext.startActivity(intent);
     }
 }

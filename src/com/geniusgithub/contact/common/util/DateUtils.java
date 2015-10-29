@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.geniusgithub.contact.util;
+package com.geniusgithub.contact.common.util;
 
 import android.content.Context;
 import android.text.format.DateFormat;

@@ -23,7 +23,7 @@ import android.provider.CallLog.Calls;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.Time;
 
-import com.geniusgithub.contact.util.DateUtils;
+import com.geniusgithub.contact.common.util.DateUtils;
 import com.geniusgithub.contact.util.PhoneNumberHelper;
 import com.geniusgithub.contact.widget.GroupingListAdapter;
 
