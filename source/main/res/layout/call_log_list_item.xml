@@ -14,8 +14,8 @@
      limitations under the License.
 -->
 
-<view xmlns:android="http://schemas.android.com/apk/res/android"
-    class="com.geniusgithub.contact.contact.calllog.CallLogListItemView"
+<com.geniusgithub.contact.contact.calllog.CallLogListItemView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/call_log_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_marginStart="@dimen/call_log_start_margin"
         android:layout_marginEnd="@dimen/call_log_outer_margin"
         android:fontFamily="sans-serif-medium"
-        android:textColor="?attr/call_log_secondary_text_color"
+        android:textColor="@color/dialtacts_secondary_text_color"
         android:textSize="@dimen/call_log_secondary_text_size"
         android:paddingTop="@dimen/call_log_day_group_padding_top"
         android:paddingBottom="@dimen/call_log_day_group_padding_bottom" />
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/call_log_name_margin_bottom"
                     android:layout_marginEnd="@dimen/call_log_icon_margin"
-                    android:textColor="?attr/call_log_primary_text_color"
+                    android:textColor="@color/dialtacts_primary_text_color"
                     android:textSize="@dimen/call_log_primary_text_size"
                     android:singleLine="true"
                     />
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/call_log_icon_margin"
-                    android:textColor="?attr/call_log_secondary_text_color"
+                    android:textColor="@color/dialtacts_secondary_text_color"
                     android:textSize="@dimen/call_log_secondary_text_size"
                     android:singleLine="true"
                     android:ellipsize="marquee"
@@ -119,7 +119,7 @@
                         android:layout_height="@dimen/call_provider_small_icon_size"
                         android:layout_marginEnd="@dimen/call_log_icon_margin"
                         android:layout_gravity="center_vertical"
-                        android:tint="?attr/call_log_secondary_text_color"
+                        android:tint="@color/dialtacts_secondary_text_color"
                         android:scaleType="centerInside"
                         />
                     <TextView
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/call_log_icon_margin"
                         android:layout_gravity="center_vertical"
-                        android:textColor="?attr/call_log_secondary_text_color"
+                        android:textColor="@color/dialtacts_secondary_text_color"
                         android:textSize="@dimen/call_log_secondary_text_size"
                         android:singleLine="true"
                         />
@@ -160,4 +160,4 @@
               android:layout="@layout/call_log_list_item_extra"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"/>
-</view>
+</com.geniusgithub.contact.contact.calllog.CallLogListItemView>
