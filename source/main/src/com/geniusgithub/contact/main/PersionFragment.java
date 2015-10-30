@@ -83,4 +83,17 @@ public class PersionFragment extends BaseFragment{
 		return PersionFragment.class.getSimpleName();
 	}
 
+
+
+	@Override
+	public void onTabSelectedStatusChanged(int status) {
+		log.i("onTabSelectedStatusChanged status = " + status);
+
+        if (BaseFragment.TAB_SELECTED == status) {
+     
+        } else {
+
+        }
+	}
+
 }

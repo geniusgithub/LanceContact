@@ -67,6 +67,7 @@ public class CallLogFragment extends BaseFragment
 	private ListView mListView;
 	
 	private View mFragmentContainer;
+    public boolean isFragmentSelect = false;
 	
     private static final String REPORT_DIALOG_TAG = "report_dialog";
     private String mReportDialogNumber;
@@ -520,12 +521,17 @@ public class CallLogFragment extends BaseFragment
 
     /** Updates call data and notification state while leaving the call log tab. */
     private void updateOnExit() {
-        updateOnTransition(false);
+    	if (isFragmentSelect){
+    	     updateOnTransition(false);
+    	}
+ 
     }
 
     /** Updates call data and notification state while entering the call log tab. */
     private void updateOnEntry() {
-        updateOnTransition(true);
+    	if (isFragmentSelect){
+            updateOnTransition(true);
+    	}
     }
 
     // TODO: Move to CallLogActivity
@@ -533,15 +539,16 @@ public class CallLogFragment extends BaseFragment
         // We don't want to update any call data when keyguard is on because the user has likely not
         // seen the new calls yet.
         // This might be called before onCreate() and thus we need to check null explicitly.
+    	log.i("updateOnTransition onEntry = " + onEntry);
         if (mKeyguardManager != null && !mKeyguardManager.inKeyguardRestrictedInputMode()) {
             // On either of the transitions we update the missed call and voicemail notifications.
             // While exiting we additionally consume all missed calls (by marking them as read).
-        /*    mCallLogQueryHandler.markNewCallsAsOld();
+            mCallLogQueryHandler.markNewCallsAsOld();
             if (!onEntry) {
                 mCallLogQueryHandler.markMissedCallsAsRead();
             }
             CallLogNotificationsHelper.removeMissedCallNotifications(getActivity());
-            CallLogNotificationsHelper.updateVoicemailNotifications(getActivity());*/
+        //    CallLogNotificationsHelper.updateVoicemailNotifications(getActivity());
         }
     }
 
@@ -735,4 +742,16 @@ public class CallLogFragment extends BaseFragment
             mIsReportDialogShowing = true;
         }
     }
+
+	@Override
+	public void onTabSelectedStatusChanged(int status) {
+		log.i("onTabSelectedStatusChanged status = " + status);
+
+        if (BaseFragment.TAB_SELECTED == status) {
+        	isFragmentSelect = true;
+        	updateOnEntry();
+        } else {
+        	isFragmentSelect = false;
+        }
+	}
 }

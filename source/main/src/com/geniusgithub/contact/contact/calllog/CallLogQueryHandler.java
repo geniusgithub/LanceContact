@@ -35,10 +35,14 @@ import android.provider.CallLog.Calls;
 import android.telephony.SubscriptionManager;
 import android.util.Log;
 
+import com.geniusgithub.contact.util.CommonLog;
+import com.geniusgithub.contact.util.LogFactory;
 import com.google.android.collect.Lists;
 
 /** Handles asynchronous queries to the call log. */
 public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
+	private static final CommonLog log = LogFactory.createLog(CallLogFragment.class.getSimpleName());
+	
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     private static final String TAG = "CallLogQueryHandler";
@@ -243,6 +247,7 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
     /** Updates all new calls to mark them as old. */
     public void markNewCallsAsOld() {
         // Mark all "new" calls as not new anymore.
+    	log.i("markNewCallsAsOld");
         StringBuilder where = new StringBuilder();
         where.append(Calls.NEW);
         where.append(" = 1");
@@ -277,6 +282,7 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
     /** Updates all missed calls to mark them as read. */
     public void markMissedCallsAsRead() {
         // Mark all "new" calls as not new anymore.
+    	log.i("markMissedCallsAsRead");
         StringBuilder where = new StringBuilder();
         where.append(Calls.IS_READ).append(" = 0");
         where.append(" AND ");

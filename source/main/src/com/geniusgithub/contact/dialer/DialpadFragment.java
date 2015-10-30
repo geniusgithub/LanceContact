@@ -184,6 +184,18 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 	}
+	
+	
+	@Override
+	public void onTabSelectedStatusChanged(int status) {
+		log.i("onTabSelectedStatusChanged status = " + status);
+
+        if (BaseFragment.TAB_SELECTED == status) {
+     
+        } else {
+
+        }
+	}
 
 	public void toggleDialpad(Context context){
 		
@@ -410,4 +422,6 @@ public class DialpadFragment extends BaseFragment implements TextWatcher, IDigit
         	mDigitsEditText.getText().delete(currentPosition - 1, currentPosition);
         }
     }
+
+	
 }

@@ -60,12 +60,14 @@ public class TabManager implements ITabInterface {
 			
 			if (mCurrentFragment != null){
 				fragmentTransaction.hide(mCurrentFragment);
+				mCurrentFragment.onTabSelectedStatusChanged(BaseFragment.TAB_UNSELECTED);
 			}
 			
 			mCurrentFragment = findFragment(position);
 			if (mCurrentFragment != null){
 				fragmentTransaction.show(mCurrentFragment);
 				log.i("show fragment = " + mCurrentFragment);
+				mCurrentFragment.onTabSelectedStatusChanged(BaseFragment.TAB_SELECTED);
 			}else{
 				log.e("can't find fragment for pos:" + position);
 			}

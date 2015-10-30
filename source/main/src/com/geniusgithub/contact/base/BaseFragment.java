@@ -13,9 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BaseFragment extends Fragment{
+public abstract class BaseFragment extends Fragment{
 
 	protected Context  mContext;
+	
+    public static final int TAB_SELECTED = 0;
+    public static final int TAB_UNSELECTED = 1;
+
 	  
 	public BaseFragment(Context context){
 		super();
@@ -80,6 +84,8 @@ public class BaseFragment extends Fragment{
 		super.onDetach();
 		
 	}
+	
+	public abstract void onTabSelectedStatusChanged(int status);
 
 	public Context getContext(){
 		return mContext;
