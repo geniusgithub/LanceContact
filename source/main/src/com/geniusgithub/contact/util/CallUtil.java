@@ -301,7 +301,8 @@ public class CallUtil {
     public static Intent getCallIntent(Context context, String number, int solotID) {
         
         Uri uri = getCallUri(number);
-        final Intent intent = new Intent(Intent.ACTION_CALL_PRIVILEGED, uri);
+    //    final Intent intent = new Intent(Intent.ACTION_CALL_PRIVILEGED, uri);
+        final Intent intent = new Intent(Intent.ACTION_CALL, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PhoneAccountHandle phoneAccounthandle = getDialNumberPhoneAccount(context,  solotID);
         if (phoneAccounthandle != null) {
